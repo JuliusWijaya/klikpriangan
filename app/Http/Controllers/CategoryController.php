@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
+use \Cviebrock\EloquentSluggable\Services\SlugService;
 
 class CategoryController extends Controller
 {
@@ -53,8 +54,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Request $request)
     {
+        $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
+
+        return response()->json(['slug' => $slug]);
     }
 
     /**
@@ -63,9 +67,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        $data = Category::where('slug', $category->slug)->first();
+
+        return view('categories.edit', ['title' => 'Edit category', 'data' => $data]);
     }
 
     /**
@@ -82,14 +88,14 @@ class CategoryController extends Controller
         ];
 
         if ($request->slug != $category->slug) {
-            $rules['slug'] =  'required|unique:categories';
+            $rules['slug'] = 'required|unique:categories';
         }
 
         $validateData = $request->validate($rules);
-
-        Category::where('id', $category)
+        Category::where('id', $category->id)
             ->update($validateData);
         Alert::success('Success', 'Successfully updated category');
+
         return redirect('/category');
     }
 

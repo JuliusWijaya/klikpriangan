@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -21,7 +23,7 @@ class PostController extends Controller
         $title = 'Dashboard Post';
         $posts = Post::latest()->get();
 
-        return view('posts.index', ['title' => $title, 'posts' => $posts]);
+        return view('post.index', ['title' => $title, 'posts' => $posts]);
     }
 
     /**
@@ -31,9 +33,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        $title = 'Create Post';
+        $title      = 'Create Post';
+        $categories = Category::all();
 
-        return view('posts.create', ['title'    => $title]);
+        return view('post.create', ['title'    => $title, 'categories' => $categories]);
     }
 
     /**
@@ -45,19 +48,29 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validateData = $request->validate([
-            'title'         => 'required|max:110',
+            'title'         => 'required|max:120|unique:posts',
+            'category_id'   => 'required',
             'slug'          => 'required|unique:posts',
-            'excerpt'       => 'required|max:150',
+            'excerpt'       => 'required|max:130',
             'body'          => 'required',
-            'published_at'  => 'required',
+            'photo'         => 'mimes:png,jpg,jpeg|max:2048',
         ]);
 
+        $newName = '';
+
+        if ($request->file('photo')) {
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newName = Auth::user()->username . '-' . now()->timestamp . '.' . $extension;
+            $request->file('photo')->storeAs('image', $newName);
+        }
+
+        $validateData['image'] =  $newName;
         $validateData['excerpt'] = Str::limit($validateData['excerpt'], 150);
         $validateData['published_at'] = Carbon::now()->toDateString();
-        dd($validateData);
-        Post::create($validateData);
-        Alert::success('Success', 'Successfully add category');
+        $validateData['body'] = strip_tags($validateData['body']);
 
+        Post::create($validateData);
+        Alert::success('Success', 'Successfully add post');
         return redirect('/posts');
     }
 
@@ -67,10 +80,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Post $post)
     {
-        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
-        return response()->json(['slug' => $slug]);
+        $data = Post::where('slug', $post->slug)->first();
+
+        return view('post.detail', ['title' => 'Details Post', 'data' => $data]);
     }
 
     /**
@@ -79,9 +93,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        $data = Post::where('slug', $post->slug)->first();
+        $categories = Category::all();
+
+        return view('post.edit', [
+            'title'         => 'Edit ' . $post->title,
+            'data'          => $data,
+            'categories'    => $categories,
+        ]);
     }
 
     /**
@@ -91,9 +112,28 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $rules = [
+            'title'         => 'required|unique:posts|max:120',
+            'category_id'   => 'required',
+            'excerpt'       => 'required|max:130',
+            'body'          => 'required',
+        ];
+
+        if ($request->slug != $post->slug) {
+            $rules['slug'] = 'required|unique:posts';
+        }
+
+        $validateData = $request->validate($rules);
+        $validateData['excerpt'] = Str::limit($validateData['excerpt'], 180);
+        $validateData['published_at'] = Carbon::now()->toDateString();
+        $validateData['body'] = strip_tags($validateData['body']);
+        Post::where('id', $post->id)
+            ->update($validateData);
+
+        Alert::success('Success', 'Successfully update post');
+        return redirect('/posts');
     }
 
     /**
@@ -102,8 +142,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        Post::destroy($post->id);
+        Alert::success('Success', 'Successfully deleted post');
+        return redirect('/posts');
+    }
+
+    public function checkSlug(Request $request)
+    {
+        $slug = SlugService::createSlug(Post::class, 'slug', $request->title);
+
+        return response()->json(['slug' => $slug]);
     }
 }

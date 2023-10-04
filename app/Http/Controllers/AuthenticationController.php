@@ -2,12 +2,34 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthenticationController extends Controller
 {
+    public function register_action(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|',
+            'email'    => 'required|email:dns',
+            'password' => 'required',
+        ]);
+
+        $user = new User([
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->save();
+
+        Session::flash('status', 'Success!');
+        Session::flash('message', 'Successfully register pleas contact admin for active account');
+        return redirect()->route('login');
+    }
+
     public function login()
     {
         $title = 'Login';

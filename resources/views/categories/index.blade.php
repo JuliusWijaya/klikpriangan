@@ -12,10 +12,13 @@
         </div>
 
         @if ($errors->any())
-        <div>
+        <div style="margin: 15px 0;">
             <ul>
                 @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    {{ $error }}
+                </div>
                 @endforeach
             </ul>
         </div>
@@ -44,10 +47,10 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
                         <td>
-                            <button type="button" data-id="{{ $item->id }}" id="btnUbah" class="btn btn-info mybtn"
-                                data-toggle="modal" data-target='#modalEdit{{ $item->id }}' style="margin-right: 5px;">
+                            <a href="/category/{{ $item->slug }}/edit" class="btn btn-warning" style="margin: 0 5px;">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                            </button>
+                            </a>
+                           
                             <form action="{{ route('category.destroy', $item->id) }}" method="POST"
                                 style="display: inline;">
                                 @csrf
@@ -59,43 +62,6 @@
                             </form>
                         </td>
                     </tr>
-
-                    <!-- Modal Edit -->
-                    <div class="modal fade" id="modalEdit{{ $item->id }}" tabindex="-1" role="dialog"
-                        aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{{ route('category.update', $item->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="form-group @error('name') has-error @enderror">
-                                            <label for="name">Nama Category</label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                                name="name" id="name" value="{{ $item->name }}"
-                                                placeholder="Nama category">
-                                            @error('name')
-                                                <div class="text-danger">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
-                                        </div>
-                                     
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">Close</button>
-                                            <button type="submit" id="myBtn" class="btn btn-primary">Edit</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     @endforeach
                 </tbody>
             </table>
@@ -116,9 +82,19 @@
                             @csrf
                             <div class="form-group @error('name') has-error @enderror">
                                 <label for="name">Nama Category</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                    id="name" value="" placeholder="Nama category">
+                                <input type="text" class="form-control" name="name"
+                                    id="check" placeholder="Nama category">
                                 @error('name')
+                                <div class="text-danger">
+                                    {{ $message }}
+                                </div>
+                                @enderror
+                            </div>
+                            <div class="form-group @error('slug') has-error @enderror">
+                                <label for="slug">Slug Category</label>
+                                <input type="text" class="form-control" name="slug"
+                                    id="slug" placeholder="Slug category">
+                                @error('slug')
                                 <div class="text-danger">
                                     {{ $message }}
                                 </div>
@@ -136,3 +112,4 @@
     </div>
 </div>
 @endsection
+

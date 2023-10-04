@@ -5,7 +5,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+          <img src="{{ asset('/dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ auth()->user()->username }}</p>
@@ -18,6 +18,7 @@
           <a href="/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
           <a href="/category"><i class="fa fa-tags"></i> <span>Category</span></a>
           <a href="/posts"><i class="fa fa-certificate"></i> <span>Post</span></a>
+          <a href="/users"><i class="fa fa-user"></i> <span>User</span></a>
         </li>
       </ul>
     </section>

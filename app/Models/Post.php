@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory, Sluggable;
 
-    protected $fillabel = ['title', 'slug', 'excerpt', 'body', 'published_at'];
+    protected $guarded = ['id'];
 
     public function sluggable(): array
     {
@@ -19,5 +19,10 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }
