@@ -25,4 +25,9 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function author()
+    {
+        return $this->hasMany(User::class, 'id', 'user_id');
+    }
 }

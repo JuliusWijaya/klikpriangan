@@ -10,11 +10,15 @@
                     @foreach ($datas as $item)
                     <article class="blog_item">
                         <div class="blog_item_img">
-                            <img class="card-img rounded-0" src="/assets/img/blog/single_blog_1.png" alt="">
+                            @if ($item->image)
+                            <img class="card-img rounded-0" src="{{ asset('/storage/image/'.$item->image) }}" alt="{{ $item->title }}">
+                            @else
+                            <img src="/Assets/img/blog.52" alt="image">
+                            @endif
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="/klikpriangan/{{ $item->slug }}">
+                            <a class="d-inline-block" href="/{{ $item->slug }}">
                                 <h2>{{ $item->title }}</h2>
                             </a>
                             <p>{{ $item->excerpt }}</p>
@@ -26,9 +30,9 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/author/{{ $item->author->username }}">
                                         <i class="fa fa-user"></i>
-                                        Post By Admin
+                                        Post By {{ $item->author->username }}
                                     </a>
                                  </li> 
                             </ul>
@@ -51,7 +55,7 @@
                     <ul class="list cat-list">
                         @foreach ($categories as $item)
                         <li>
-                            <a href="/klikpriangan/category/{{ $item->slug }}" class="d-flex">
+                            <a href="/category/{{ $item->slug }}" class="d-flex">
                                 <p class="me-5">{{ $item->name }}</p>
                             </a>
                         </li>
@@ -65,7 +69,7 @@
                     <div class="media post_item">
                         <img src="/assets/img/post/post_1.png" alt="post">
                         <div class="media-body">
-                            <a href="/klikpriangan/{{ $data->slug }}">
+                            <a href="/{{ $data->slug }}">
                                 <h3>{{ $data->excerpt }}</h3>
                             </a>
                             <p>{{ \Carbon\Carbon::parse($item->published_at)->format('M d Y') }}</p>

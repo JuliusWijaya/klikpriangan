@@ -13,12 +13,17 @@
                     <div class="blog_details mb-5">
                        <h2>{{ $data->title }}</h2>
                        <ul class="blog-info-link mt-3 mb-4">
-                          <li><a href="/klikpriangan/category/{{ $data->category->slug }}"><i class="fa fa-user"></i> {{ $data->category->name }}</a></li>
+                          <li>
+                           <a href="/author/{{ $data->author->username }}">
+                              <i class="fa fa-user"></i> {{ $data->author->username }} -
+                           </a>
+                           <a href="/category/{{ $data->category->slug }}">
+                               {{ $data->category->name }}</a>
+                           </li>
                        </ul>
                        <p class="excert">
                          {{ $data->excert }}
                        </p>
-            
                        {!! $data->body !!}
                     </div>
                  </div>
@@ -44,9 +49,8 @@
                        <ul class="list cat-list">
                         @foreach ($categories as $item)
                         <li>
-                           <a href="/klikpriangan/category/{{ $item->slug }}" class="d-flex">
+                           <a href="/category/{{ $item->slug }}" class="d-flex">
                               <p>{{ $item->name }}</p>
-                              <p>(37)</p>
                            </a>
                         </li>
                         @endforeach
@@ -55,20 +59,22 @@
 
                     <aside class="single_sidebar_widget popular_post_widget">
                        <h3 class="widget_title">Recent Post</h3>
+                       @foreach ($posts as $post)
                        <div class="media post_item">
-                        @if ($data->image)
-                        <img src="{{ asset('/storage/image/'.$data->image) }}" alt="{{ $data->title }}" width="100px">
+                        @if ($post->image)
+                        <img src="{{ asset('/storage/image/'.$post->image) }}" alt="{{ $post->title }}" width="100px">
                         @else
                         <img src="/assets/img/post/post_1.png" alt="Post">
                         @endif
-                          <div class="media-body">
-                             <a href="/klikpriangan/{{ $data->slug }}">
-                                <h3>{{ $data->title }}</h3>
-                             </a>
-                             <p>{{ $data->excerpt }}</p>
-                             <p>{{ \Carbon\Carbon::parse($data->published_at)->format('M d Y') }}</p>
-                          </div>
-                       </div>
+                        <div class="media-body">
+                           <a href="/{{ $post->slug }}">
+                              <h3>{{ $post->title }}</h3>
+                           </a>
+                           <p>{{ $post->excerpt }}</p>
+                           <p>{{ \Carbon\Carbon::parse($post->published_at)->format('M d Y') }}</p>
+                        </div>
+                     </div>
+                     @endforeach
                     </aside>
                  </div>
               </div>

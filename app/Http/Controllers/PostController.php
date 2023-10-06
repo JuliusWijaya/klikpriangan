@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 
@@ -35,8 +37,9 @@ class PostController extends Controller
     {
         $title      = 'Create Post';
         $categories = Category::all();
+        $users = User::where('status', 'active')->select('id', 'username')->get();
 
-        return view('post.create', ['title'    => $title, 'categories' => $categories]);
+        return view('post.create', ['title'    => $title, 'categories' => $categories])->with('users', $users);
     }
 
     /**
@@ -50,24 +53,25 @@ class PostController extends Controller
         $validateData = $request->validate([
             'title'         => 'required|max:120|unique:posts',
             'category_id'   => 'required',
+            'user_id'       => 'required',
             'slug'          => 'required|unique:posts',
             'excerpt'       => 'required|max:130',
             'body'          => 'required',
-            'photo'         => 'mimes:png,jpg,jpeg|max:2048',
+            'photo'         => 'image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         $newName = '';
 
         if ($request->file('photo')) {
             $extension = $request->file('photo')->getClientOriginalExtension();
-            $newName = Auth::user()->username . '-' . now()->timestamp . '.' . $extension;
+            $newName = Str::lower(Auth::user()->username . '-' . now()->timestamp . '.' . $extension);
             $request->file('photo')->storeAs('image', $newName);
         }
 
         $validateData['image'] =  $newName;
         $validateData['excerpt'] = Str::limit($validateData['excerpt'], 150);
         $validateData['published_at'] = Carbon::now()->toDateString();
-        $validateData['body'] = strip_tags($validateData['body']);
+        $validateData['body'] = $validateData['body'];
 
         Post::create($validateData);
         Alert::success('Success', 'Successfully add post');
@@ -115,22 +119,38 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $rules = [
-            'title'         => 'required|unique:posts|max:120',
             'category_id'   => 'required',
             'excerpt'       => 'required|max:130',
             'body'          => 'required',
+            'photo'         => 'image|mimes:png,jpg,jpeg|max:2048',
         ];
 
-        if ($request->slug != $post->slug) {
-            $rules['slug'] = 'required|unique:posts';
+        if ($request->slug != $post->slug || $request->title != $post->title) {
+            $rules['slug']  = 'required|unique:posts';
+            $rules['title'] = 'required|unique:posts';
+        }
+
+        $newName = '';
+
+        if ($request->file('photo')) {
+            if ($request->oldImage) {
+                Storage::disk('local')->delete('public/image/' . $request->oldImage);
+            }
+
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            $newName = Str::lower(Auth::user()->username . '-' . now()->timestamp . '.' . $extension);
+            $request->file('photo')->storeAs('image', $newName);
         }
 
         $validateData = $request->validate($rules);
+        $validateData['image'] = $newName;
+        $validateData['user_id'] = Auth::user()->id;
         $validateData['excerpt'] = Str::limit($validateData['excerpt'], 180);
         $validateData['published_at'] = Carbon::now()->toDateString();
         $validateData['body'] = strip_tags($validateData['body']);
-        Post::where('id', $post->id)
-            ->update($validateData);
+
+        $posts = Post::where('id', $post->id)->first();
+        $posts->update($validateData);
 
         Alert::success('Success', 'Successfully update post');
         return redirect('/posts');

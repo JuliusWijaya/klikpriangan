@@ -57,7 +57,7 @@
                          <div class="col-xl-8 col-lg-8 col-md-12 header-flex">
                              <!-- sticky -->
                              <div class="sticky-logo">
-                                 <a href="index.html"><img src="/assets/img/logo/logoklik.png" alt=""></a>
+                                 <a href="/"><img src="/assets/img/logo/logoklik.png" alt=""></a>
                              </div>
                              <!-- Main-menu -->
                              <div class="main-menu d-none d-md-block">
@@ -65,7 +65,8 @@
                                      <ul id="navigation">
                                          <li><a href="/">Klik Priangan</a></li>
                                          @foreach ($categories as $item)
-                                         <li><a href="/klikpriangan/category/{{ $item->slug }}">{{ $item->name }}</a>
+                                         <li>
+                                            <a href="/category/{{ $item->slug }}">{{ $item->name }}</a>
                                          </li>
                                          @endforeach
                                      </ul>

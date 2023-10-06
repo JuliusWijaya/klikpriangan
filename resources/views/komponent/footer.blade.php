@@ -9,7 +9,7 @@
                 <div class="single-footer-caption mb-30">
                   <!-- logo -->
                   <div class="footer-logo">
-                    <a href="index.html"><img src="/assets/img/logo/klikprianganwhite.png" class="w-100" alt="" /></a>
+                    <a href="/"><img src="/assets/img/logo/klikprianganwhite.png" class="w-100" alt="" /></a>
                   </div>
                   <div class="footer-tittle">
                     <div class="footer-pera">
@@ -25,21 +25,11 @@
               <div class="single-footer-caption mb-50">
                 <div class="footer-tittle">
                   <p class="okes text-white">KLIK PRIANGAN</p>
-                  <a href="blog.html">
-                    <p class="text-white">Gaya Hidup</p>
+                  @foreach ($categories as $category)
+                  <a href="/category/{{ $category->slug }}">
+                    <p class="text-white">{{ $category->name }}</p>
                   </a>
-                  <a href="#">
-                    <p class="text-white">Pendidikan</p>
-                  </a>
-                  <a href="#">
-                    <p class="text-white">Opini</p>
-                  </a>
-                  <a href="#">
-                    <p class="text-white">Wisata Kuliner</p>
-                  </a>
-                  <a href="#">
-                    <p class="text-white">Olahraga</p>
-                  </a>
+                  @endforeach
                 </div>
               </div>
             </div>
@@ -55,9 +45,11 @@
             </div>
             <div class="d-block">
               <p>
-                <a href="/klikpriangan/about-us">Tentang Kami</a> | <a href="/klikpriangan/redaksi">Redaksi</a> | 
-                <a href="/klikpriangan/pedoman-media-siber">Pedoman Pemberitaan</a> | <a href="/klikpriangan/info-iklan">Info Iklan</a> | 
-                <a href="/klikpriangan/kontak">Kontak</a> |
+                <a href="/pages/about">Tentang Kami</a> | 
+                <a href="/redaksi">Redaksi</a> | 
+                <a href="/pedoman-media-siber">Pedoman Pemberitaan</a> | 
+                <a href="/info-iklan">Info Iklan</a> | 
+                <a href="/kontak">Kontak</a> |
               </p>
             </div>
           </div>

@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PagesController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PagesController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\SinglePageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,26 +20,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [PagesController::class, 'index']);
-Route::get('/klikpriangan/category/{category:slug}', [PagesController::class, 'category']);
-Route::get('/klikpriangan/{post:slug}', [PagesController::class, 'detailPost']);
+Route::get('/pages/about', [PagesController::class, 'about']);
+Route::get('/redaksi', [PagesController::class, 'redaksi']);
+Route::get('/pedoman-media-siber', [PagesController::class, 'pedomanMedia']);
+Route::get('/info-iklan', [PagesController::class, 'infoIklan']);
+Route::get('/kontak', [PagesController::class, 'contact']);
 
-Route::get('/klikpriangan/about-us', [PagesController::class, 'about']);
-Route::get('/klikpriangan/redaksi', [PagesController::class, 'redaksi']);
-Route::get('/klikpriangan/pedoman-media-siber', [PagesController::class, 'pedomanMedia']);
-Route::get('/klikpriangan/info-iklan', [PagesController::class, 'infoIklan']);
-Route::get('/klikpriangan/kontak', [PagesController::class, 'contact']);
-
-Route::get('/klikpriangan-login', [AuthenticationController::class, 'login'])->name('login');
-Route::post('/klikpriangan/login', [AuthenticationController::class, 'loginAction'])->name('login.action');
+Route::get('/category/{category:slug}', [PagesController::class, 'category']);
+Route::get('/{post:slug}', [PagesController::class, 'detailPost']);
+Route::get('/author/{author:username}', [PagesController::class, 'authorPost']);
+Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('/login', [AuthenticationController::class, 'loginAction'])->name('login.action');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
     Route::middleware('only.admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index']);
-        Route::resource('category', CategoryController::class);
-        Route::get('/category/{category:slug}/edit', [CategoryController::class, 'edit']);
-        Route::get('/category/create/checkSlug', [CategoryController::class, 'show']);
+        Route::resource('categories', CategoryController::class);
+        Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit']);
+        Route::get('/categories/create/checkSlug', [CategoryController::class, 'show']);
 
         Route::resource('posts', PostController::class);
         Route::get('/posts/details/{post:slug}', [PostController::class, 'show']);

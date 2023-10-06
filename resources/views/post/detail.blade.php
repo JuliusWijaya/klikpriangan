@@ -31,6 +31,9 @@
                 <input type="text" class="form-control" value="{{ $data->excerpt }}">
                 <div style="padding: 5px;">
                 </div>
+                <img src="{{ asset('/storage/image/'.$data->image) }}" width="200px" alt="{{ $data->title }}">
+                <div style="padding: 5px;">
+                </div>
                 <textarea cols="30" rows="12" class="form-control">{{ $data->body }}</textarea>
                 <div style="padding: 5px;">
                 </div>

@@ -50,7 +50,7 @@
                             <a href="/category/{{ $item->slug }}/edit" class="btn btn-warning" style="margin: 0 5px;">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
-                           
+                            @if ($item->posts_count == 0)
                             <form action="{{ route('category.destroy', $item->id) }}" method="POST"
                                 style="display: inline;">
                                 @csrf
@@ -60,6 +60,7 @@
                                     <i class="fa fa-times-circle" aria-hidden="true"></i>
                                 </button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach
@@ -91,8 +92,7 @@
                                 @enderror
                             </div>
                             <div class="form-group @error('slug') has-error @enderror">
-                                <label for="slug">Slug Category</label>
-                                <input type="text" class="form-control" name="slug"
+                                <input type="hidden" class="form-control" name="slug"
                                     id="slug" placeholder="Slug category">
                                 @error('slug')
                                 <div class="text-danger">

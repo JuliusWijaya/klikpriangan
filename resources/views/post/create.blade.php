@@ -76,6 +76,13 @@
                         <input id="body" type="hidden" name="body" value="{{ old('body') }}">
                         <trix-editor input="body"></trix-editor>
                     </div>
+                    <div class="form-group">
+                        <select name="user_id" id="user_id" class="form-control">
+                            @foreach ($users as $user)
+                            <option value="{{ $user->id }}">{{ $user->username }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div>
                         <button type="submit" class="btn btn-primary text-end">Submit</button>
                     </div>

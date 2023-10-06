@@ -17,7 +17,7 @@ class CategoryController extends Controller
     public function index()
     {
         $title = 'Category';
-        $categories = Category::latest()->get();
+        $categories = Category::withCount('posts')->latest()->get();
 
         return view('categories.index', ['title' => $title, 'categories' => $categories]);
     }

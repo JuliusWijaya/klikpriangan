@@ -10,26 +10,6 @@ use Illuminate\Support\Facades\Session;
 
 class AuthenticationController extends Controller
 {
-    public function register_action(Request $request)
-    {
-        $request->validate([
-            'username' => 'required|',
-            'email'    => 'required|email:dns',
-            'password' => 'required',
-        ]);
-
-        $user = new User([
-            'username' => $request->username,
-            'password' => Hash::make($request->password),
-        ]);
-
-        $user->save();
-
-        Session::flash('status', 'Success!');
-        Session::flash('message', 'Successfully register pleas contact admin for active account');
-        return redirect()->route('login');
-    }
-
     public function login()
     {
         $title = 'Login';
@@ -60,7 +40,7 @@ class AuthenticationController extends Controller
             $request->session()->regenerate();
 
             if (Auth::user()->role_id == 1) {
-                return redirect()->intended('dashboard');
+                return redirect()->intended('/dashboard');
             }
 
             if (Auth::user()->role_id == 2) {
@@ -76,9 +56,7 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         Auth::logout();
-
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');

@@ -16,14 +16,14 @@
   <link rel="stylesheet" href="{{ asset('/dist/css/AdminLTE.min.css') }}">
   <link rel="stylesheet" href="{{ asset('/dist/css/skins/_all-skins.min.css') }}">
   <!-- Morris chart -->
-  <link rel="stylesheet" href="/bower_components/morris.js/morris.css">
+  <link rel="stylesheet" href="{{ asset('/bower_components/morris.js/morris.css') }}">
   <!-- jvectormap -->
-  <link rel="stylesheet" href="/bower_components/jvectormap/jquery-jvectormap.css">
+  <link rel="stylesheet" href="{{ asset('/bower_components/jvectormap/jquery-jvectormap.css') }}">
   <!-- Date Picker -->
-  <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css">
-  <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <link rel="stylesheet" href="{{ asset('/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
+  <link rel="stylesheet" href="{{ asset('/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -60,8 +60,8 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-              <p>Bounce Rate</p>
+              <h3>{{ $posts }}</h3>
+              <p>Postingan</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>

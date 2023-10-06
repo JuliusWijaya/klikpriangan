@@ -6,18 +6,26 @@
     trix-toolbar [data-trix-button-group="file-tools"] {
         display: none;
     }
+
 </style>
 
 <div class="row" style="padding: 0 25px;">
     <div class="col-12">
         <h3 style="margin: 25px 0;">Edit Post </h3>
+        @if ($errors->any())
+            @foreach ($errors->all() as $error)
+                <div class="alert alert-danger" role="alert">
+                    {{ $error }}
+                </div>
+            @endforeach
+        @endif
 
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <a href="/posts" class="btn btn-default "><i class="fa fa-reply" aria-hidden="true"></i></a>
             </div>
             <div class="panel-body">
-                <form action="{{ route('posts.update', $data->id) }}" method="POST">
+                <form action="{{ route('posts.update', $data->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group @error('title') has-error @enderror">
@@ -44,9 +52,9 @@
                         <label for="category_id">Category</label>
                         <select class="form-control" name="category_id" id="category_id">
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" @selected(old('category_id', $data->category_id))>
-                                    {{ $category->name }}
-                                </option>
+                            <option value="{{ $category->id }}" @selected(old('category_id', $data->category_id))>
+                                {{ $category->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -60,9 +68,14 @@
                         </p>
                         @enderror
                     </div>
+
                     <div class="form-group">
-                        <input type="file" class="form-control">
+                        <input type="hidden" name="oldImage" value="{{ $data->image }}">
+                        <img src="{{ asset('/storage/image/'.$data->image) }}" class="img-preview img-fluid col-sm-5" alt="{{ $data->title }}" 
+                        width="100px" style="padding: 15px;">
+                        <input type="file" class="form-control" name="photo" id="photo" onchange="previewImage()">
                     </div>
+
                     <div class="form-group @error('body') has-error @enderror">
                         <label for="body">Body</label>
                         @error('body')
@@ -105,9 +118,22 @@
         });
     });
 
+    function previewImage(){
+        const image = document.getElementById('photo');
+        const imgPreview = document.querySelector('.img-preview');
+
+        imgPreview.style.display = 'block';
+
+        const oFReader = new FileReader();
+        oFReader.readAsDataURL(image.files[0]);
+
+        oFReader.onload = function(oFREvent) {
+            imgPreview.src = oFREvent.target.result;
+        }
+    }
+
     document.addEventListener('trix-file-accept', function (e) {
         e.preventDefault();
-    })
-
+    });
 </script>
 @endpush

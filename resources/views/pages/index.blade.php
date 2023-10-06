@@ -15,15 +15,22 @@
                             <div class="single-slider">
                                 <div class="trending-top mb-30">
                                     <div class="trend-top-img">
-                                        <img src="/assets/img/trending/trending_top2.jpg" alt="">
+                                        @if ($post->image)
+                                            <img src="{{ asset('/storage/image/'.$post->image) }}" alt="{{ $post->title }}">
+                                        @else
+                                        <img src="/assets/img/trending/trending_top2.jpg" alt="image">
+                                        @endif
                                         <div class="trend-top-cap">
                                             <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{{ $post->category->name }}</span>
                                             <h2>
-                                                <a href="/klikpriangan/{{ $post->slug }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">
+                                                <a href="/{{ $post->slug }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">
                                                     {{ $post->title }}
                                                 </a>
                                             </h2>
-                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">by Admin   -   {{ \Carbon\Carbon::parse($post->published_at)->format('M d Y') }}</p>
+                                            <p data-animation="fadeInUp" data-delay=".6s" data-duration="1000ms">
+                                            <a href="/author/{{ $post->author->username }}">by {{ $post->author->username }}</a>   
+                                                -   {{ \Carbon\Carbon::parse($post->published_at)->format('M d Y') }}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -84,17 +91,6 @@
                         </div>
                         <div class="col-xl-8 col-md-9">
                             <div class="properties__button">
-                                <!--Nav Button  -->                                            
-                                {{-- <nav>                                                 
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Lifestyle</a>
-                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Travel</a>
-                                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Fashion</a>
-                                        <a class="nav-item nav-link" id="nav-last-tab" data-toggle="tab" href="#nav-last" role="tab" aria-controls="nav-contact" aria-selected="false">Sports</a>
-                                        <a class="nav-item nav-link" id="nav-Sports" data-toggle="tab" href="#nav-nav-Sport" role="tab" aria-controls="nav-contact" aria-selected="false">Technology</a>
-                                    </div>
-                                </nav> --}}
-                                <!--End Nav Button  -->
                             </div>
                         </div>
                     </div>
