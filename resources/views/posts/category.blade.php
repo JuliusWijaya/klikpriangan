@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="blog_details">
-                            <a class="d-inline-block" href="/{{ $item->slug }}">
+                            <a class="d-inline-block" href="/post/{{ $item->slug }}">
                                 <h2>{{ $item->title }}</h2>
                             </a>
                             <p>{{ $item->excerpt }}</p>

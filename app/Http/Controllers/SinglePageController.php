@@ -4,42 +4,50 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
-use App\Models\User;
-use App\Models\Post;
+
 
 class SinglePageController extends Controller
 {
-    public function category(Category $category)
+    public function about()
     {
+        $title      = 'About us - Klikpriangan';
         $categories = Category::latest()->get();
 
-        return view('posts.category', [
-            'title'         => 'Category ' . $category->name,
-            'datas'         => $category->posts->load('author'),
-            'categories'    => $categories,
+        return view('pages.about', [
+            'title' => $title,
+            'categories' => $categories,
         ]);
     }
 
-    public function detailPost(Post $post)
+    public function redaksi()
     {
-        $data = Post::where('slug', $post->slug)->first();
-        $posts = Post::select('id', 'title', 'slug')->limit(5)->orderBy('published_at', 'desc')->get();
-        $categories = Category::all();
+        $title = 'Redaksi - Klik Priangan';
+        $categories = Category::latest()->get();
 
-        return view('posts.blog_details', [
-            'title'      => $post->title,
-            'data'       => $data,
-            'posts'      => $posts,
+        return view('pages.redaksi', [
+            'title' => $title,
             'categories' => $categories
         ]);
     }
 
-    public function authorPost(User $author)
+    public function media()
     {
-        return view('posts.author', [
-            'title'         => $author->username,
-            'author'        => $author->post,
-            'categories'    => Category::latest()->get(),
-        ]);
+        $title = 'Pedoman Media Siber - Klik Priangan';
+        $categories = Category::latest()->get();
+        return view('pages.pedoman', ['title'  => $title, 'categories' => $categories]);
+    }
+
+    public function iklan()
+    {
+        $title = 'Info Iklan - Klik Priangan';
+        $categories = Category::latest()->get();
+        return view('pages.info', ['title' => $title, 'categories' => $categories]);
+    }
+
+    public function contact()
+    {
+        $title = 'Kontak - Klik Priangan';
+        $categories = Category::latest()->get();
+        return view('pages.contact', ['title' => $title, 'categories' => $categories]);
     }
 }

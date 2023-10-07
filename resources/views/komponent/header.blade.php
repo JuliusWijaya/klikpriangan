@@ -21,13 +21,7 @@
                          <div class="row d-flex justify-content-between align-items-center">
                              <div class="header-info-left">
                                  <ul>
-                                     <li class="title"> {{ date('l d-m-Y') }}</li>
-                                     <li>Class property employ ancho red multi level mansion</li>
-                                 </ul>
-                             </div>
-                             <div class="header-info-right">
-                                 <ul class="header-date">
-                                     <li><span class="flaticon-calendar"></span> +880166 253 232</li>
+                                     <li class="title"> {{  $days.', '.date('d-m-Y') }}</li>
                                  </ul>
                              </div>
                          </div>

@@ -45,7 +45,7 @@
             </div>
             <div class="d-block">
               <p>
-                <a href="/pages/about">Tentang Kami</a> | 
+                <a href="/about">Tentang Kami</a> | 
                 <a href="/redaksi">Redaksi</a> | 
                 <a href="/pedoman-media-siber">Pedoman Pemberitaan</a> | 
                 <a href="/info-iklan">Info Iklan</a> | 

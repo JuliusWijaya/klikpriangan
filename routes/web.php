@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\PagesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SinglePageController;
 
 /*
@@ -20,17 +20,21 @@ use App\Http\Controllers\SinglePageController;
 */
 
 Route::get('/', [PagesController::class, 'index']);
-Route::get('/pages/about', [PagesController::class, 'about']);
-Route::get('/redaksi', [PagesController::class, 'redaksi']);
-Route::get('/pedoman-media-siber', [PagesController::class, 'pedomanMedia']);
-Route::get('/info-iklan', [PagesController::class, 'infoIklan']);
-Route::get('/kontak', [PagesController::class, 'contact']);
-
 Route::get('/category/{category:slug}', [PagesController::class, 'category']);
-Route::get('/{post:slug}', [PagesController::class, 'detailPost']);
+Route::get('/post/{post:slug}', [PagesController::class, 'detail']);
 Route::get('/author/{author:username}', [PagesController::class, 'authorPost']);
-Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
-Route::post('/login', [AuthenticationController::class, 'loginAction'])->name('login.action');
+
+Route::get('/about', [SinglePageController::class, 'about']);
+Route::get('/redaksi', [SinglePageController::class, 'redaksi']);
+Route::get('/pedoman-media-siber', [SinglePageController::class, 'media']);
+Route::get('/info-iklan', [SinglePageController::class, 'iklan']);
+Route::get('/kontak', [SinglePageController::class, 'contact']);
+
+// Route::get('/login', [SinglePageController::class, 'login'])->name('login');
+Route::get('/wp-admin', function () {
+    dd('Testing berhasil');
+});
+Route::post('/login', [SinglePageController::class, 'loginAction'])->name('login.action');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');

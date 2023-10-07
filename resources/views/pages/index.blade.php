@@ -23,7 +23,7 @@
                                         <div class="trend-top-cap">
                                             <span class="bgr" data-animation="fadeInUp" data-delay=".2s" data-duration="1000ms">{{ $post->category->name }}</span>
                                             <h2>
-                                                <a href="/{{ $post->slug }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">
+                                                <a href="/post/{{ $post->slug }}" data-animation="fadeInUp" data-delay=".4s" data-duration="1000ms">
                                                     {{ $post->title }}
                                                 </a>
                                             </h2>
