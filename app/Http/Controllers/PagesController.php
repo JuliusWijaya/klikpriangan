@@ -54,13 +54,16 @@ class PagesController extends Controller
     public function index()
     {
         $title = 'Klik Priangan - Aktual dan Unik';
-        $categories = Category::latest()->get();
-        $posts = Post::with(['category', 'author'])->skip(1)->take(3)->latest()->get();
+        $categories = Category::latest()->get(['id', 'name', 'slug']);
+        $posts = Post::with(['category', 'author'])->where('category_id', '=', 1)->orderBy('id', 'desc')->take(3)->get(['id', 'title', 'slug', 'user_id', 'category_id', 'published_at', 'image']);
+        $opini = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
+            ->where('category_id', '=', 2)->orderBy('published_at', 'desc')->first();
 
         return view('pages.index', [
             'title'      => $title,
             'categories' => $categories,
             'posts'      => $posts,
+            'opini'      => $opini,
             'days'       => $this->hari_ini,
         ]);
     }
@@ -89,15 +92,16 @@ class PagesController extends Controller
 
     public function detail(Post $post)
     {
-        $data = Post::where('slug', $post->slug)->first();
-        $posts = Post::select('id', 'title', 'slug')->limit(5)->orderBy('published_at', 'desc')->get();
-        $categories = Category::all();
+        $data  = Post::where('slug', $post->slug)->first();
+        $posts = Post::select('id', 'title', 'excerpt', 'slug', 'image')->limit(5)->orderBy('published_at', 'desc')->get();
+        $categories = Category::select('id', 'name', 'slug')->get();
 
         return view('posts.blog_details', [
             'title'      => $post->title,
             'data'       => $data,
             'posts'      => $posts,
-            'categories' => $categories
+            'categories' => $categories,
+            'days'          => $this->hari_ini,
         ]);
     }
 }

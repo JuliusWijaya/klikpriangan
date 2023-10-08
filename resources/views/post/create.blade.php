@@ -6,15 +6,16 @@
     trix-toolbar [data-trix-button-group="file-tools"] {
         display: none;
     }
+
 </style>
 
 <div class="row" style="padding: 0 30px;">
     <div class="col-12 col-lg-12">
         <h3>Create New Post</h3>
         @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <div class="alert alert-danger">{{ $error }}</div>
-            @endforeach
+        @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+        @endforeach
         @endif
 
         <div class="panel panel-primary">
@@ -48,13 +49,14 @@
                         <label for="category_id">Category</label>
                         <select class="form-control" name="category_id" id="category_id">
                             @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" @selected(old('category_id'))>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" @selected(old('category_id'))>{{ $category->name }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group @error('excerpt') has-error @enderror">
-                        <label for="excerpt">Excerpt</label>
-                        <input type="text" name="excerpt" id="excerpt" class="form-control" placeholder="Excerpt Post"
+                        <label for="excerpt">Meta Deskripsi</label>
+                        <input type="text" name="excerpt" id="excerpt" class="form-control" placeholder="Deskripsi Post"
                             value="{{ old('excerpt') }}" required>
                         @error('excerpt')
                         <p class="text-danger">
@@ -115,7 +117,7 @@
         });
     });
 
-    function previewImage(){
+    function previewImage() {
         const image = document.getElementById('photo');
         const imgPreview = document.querySelector('.img-preview');
 
@@ -124,7 +126,7 @@
         const oFReader = new FileReader();
         oFReader.readAsDataURL(image.files[0]);
 
-        oFReader.onload = function(oFREvent) {
+        oFReader.onload = function (oFREvent) {
             imgPreview.src = oFREvent.target.result;
         }
     }
@@ -132,5 +134,6 @@
     document.addEventListener('trix-file-accept', function (e) {
         e.preventDefault();
     })
+
 </script>
 @endpush

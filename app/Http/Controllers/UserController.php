@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -15,7 +18,7 @@ class UserController extends Controller
     public function index()
     {
         $title = 'User';
-        $datas = User::where('id', '!=', 6)->latest()->get();
+        $datas = User::where('id', '!=', 6)->where('status', 'active')->latest()->get();
 
         return view('users.index', [
             'title' => $title,
@@ -30,10 +33,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        $datas = User::where('status', '=', 'active')->latest()->get();
+        $datas = Role::select('id', 'name')->get();
 
-        return view('users.status', [
-            'title' => 'Status user',
+        return view('users.create', [
+            'title' => 'Create New User',
             'datas' => $datas,
         ]);
     }
@@ -46,7 +49,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'name'      => 'required|min:6|max:30',
+            'username'  => 'required|min:6|unique:users',
+            'email'     => 'required',
+            'password'  => 'required|min:6|max:20',
+            'role_id'   => 'required',
+        ]);
+
+        $validate['username'] = Str::lower($validate['username']);
+        User::create($validate);
+        Alert::success('Success', 'Successfully add user');
+        return redirect('/users');
     }
 
     /**
@@ -57,7 +71,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $data = User::where('username', $user->username)->first();
+        $data = User::withCount('post')->where('username', $user->username)->first();
 
         return view('users.details', [
             'title'   => 'Details ' . $user->username,
@@ -71,9 +85,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $datas = Role::all();
+
+        return view('users.edit', [
+            'title'     => $user->username,
+            'data'      => $user,
+            'datas'     => $datas,
+        ]);
     }
 
     /**
@@ -83,9 +103,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $validateData = $request->validate([
+            'name'      => 'required',
+            'username'  => 'required',
+            'email'     => 'required|email:dns',
+            'status'    => 'required',
+            'role_id'   => 'required'
+        ]);
+
+        $validateData['username'] = Str::lower($validateData['username']);
+        User::where('id', $user->id)
+            ->update($validateData);
+        Alert::success('Success', 'Successfully edit user');
+        return redirect('/users');
     }
 
     /**
@@ -94,8 +126,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        User::destroy($user->id);
+
+        Alert::success('Success', 'Successfully deleted user');
+        return redirect('/users');
+    }
+
+    public function status()
+    {
+        $status = User::where('status', 'inactive')->get();
+
+        return view('users.status', [
+            'title'     => 'User inactive',
+            'status'    => $status,
+        ]);
+    }
+
+    public function statusActive(User $user)
+    {
+        $data = User::find($user->id);
+        $data->status = 'active';
+        $data->save();
+        Alert::success('Success', 'Status user successfully active');
+        return redirect('/users');
     }
 }

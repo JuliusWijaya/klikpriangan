@@ -17,7 +17,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form action="{{ route('category.update', $data->id) }}" method="POST">
+                    <form action="{{ route('categories.update', $data->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <label for="name">Name</label>

@@ -22,23 +22,23 @@
         <div class="panel panel-default">
             <div class="panel-heading">Details post {{ $data->title }}</div>
             <div class="panel-body">
-                <input type="text" class="form-control" value="{{ $data->title }}">
+                <input type="text" class="form-control" value="{{ $data->title }}" readonly>
                 <div style="padding: 5px;">
                 </div>
-                <input type="text" class="form-control" value="{{ $data->category->name }}">
+                <input type="text" class="form-control" value="{{ $data->category->name }}" readonly>
                 <div style="padding: 5px;">
                 </div>
-                <input type="text" class="form-control" value="{{ $data->excerpt }}">
+                <input type="text" class="form-control" value="{{ $data->excerpt }}" readonly>
                 <div style="padding: 5px;">
                 </div>
                 <img src="{{ asset('/storage/image/'.$data->image) }}" width="200px" alt="{{ $data->title }}">
                 <div style="padding: 5px;">
                 </div>
-                <textarea cols="30" rows="12" class="form-control">{{ $data->body }}</textarea>
+                <textarea cols="30" rows="12" class="form-control" readonly>{{ strip_tags($data->body) }}</textarea>
                 <div style="padding: 5px;">
                 </div>
-                <input type="text" class="form-control"
-                    value="{{ \Carbon\Carbon::parse($data->published_at)->diffForHumans() }}">
+                <input type="text" class="form-control" 
+                    value="{{ \Carbon\Carbon::parse($data->published_at)->diffForHumans() }}" readonly>
             </div>
         </div>
     </div>

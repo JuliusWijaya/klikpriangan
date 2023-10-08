@@ -47,11 +47,11 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->name }}</td>
                         <td>
-                            <a href="/category/{{ $item->slug }}/edit" class="btn btn-warning" style="margin: 0 5px;">
+                            <a href="/categories/{{ $item->slug }}/edit" class="btn btn-warning" style="margin: 0 5px;">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
                             @if ($item->posts_count == 0)
-                            <form action="{{ route('category.destroy', $item->id) }}" method="POST"
+                            <form action="{{ route('categories.destroy', $item->id) }}" method="POST"
                                 style="display: inline;">
                                 @csrf
                                 @method('DELETE')
@@ -79,7 +79,7 @@
                         <h4 class="modal-title" id="myModalLabel">Tambah Category</h4>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('category.store') }}" method="POST">
+                        <form action="{{ route('categories.store') }}" method="POST">
                             @csrf
                             <div class="form-group @error('name') has-error @enderror">
                                 <label for="name">Nama Category</label>

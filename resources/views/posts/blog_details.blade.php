@@ -67,7 +67,7 @@
                         <img src="/assets/img/post/post_1.png" alt="Post">
                         @endif
                         <div class="media-body">
-                           <a href="/{{ $post->slug }}">
+                           <a href="/post/{{ $post->slug }}">
                               <h3>{{ $post->title }}</h3>
                            </a>
                            <p>{{ $post->excerpt }}</p>

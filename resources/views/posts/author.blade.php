@@ -12,7 +12,7 @@
                         <div class="row justify-content-between align-items-end mb-15">
                             <div class="col-xl-4">
                                 <div class="section-tittle mb-30">
-                                    <h3>Whats New</h3>
+                                    <h5 class="px-3">Post By {{ $title }}</h5>
                                 </div>
                             </div>
                             <div class="col-xl-8 col-md-9">
@@ -54,10 +54,14 @@
                                             <div class="col-xl-6 col-lg-6 col-md-6">
                                                 <div class="whats-news-single mb-40 mb-40">
                                                     <div class="whates-img">
-                                                        <img src="/assets/img/gallery/whats_news_details1.png" alt="">
+                                                        @if ($item->image)
+                                                        <img src="{{ asset('/storage/image/'.$item->image) }}" alt="{{ $item->image }}">
+                                                        @else
+                                                        <img src="/assets/img/gallery/whats_news_details1.png" alt="image">
+                                                        @endif
                                                     </div>
                                                     <div class="whates-caption whates-caption2">
-                                                        <h4><a href="/{{ $item->slug }}">{{ $item->title }}</a></h4>
+                                                        <h4><a href="/post/{{ $item->slug }}">{{ $item->title }}</a></h4>
                                                         <span>by {{ $item->author->username }} - {{ \Carbon\Carbon::parse($item->published_at)->format('M d Y') }}</span>
                                                         <p>{{ $item->excerpt }}</p>
                                                     </div>

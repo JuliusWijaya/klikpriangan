@@ -45,7 +45,7 @@ class CategoryController extends Controller
 
         Category::create($validate);
         Alert::success('Success', 'Successfully add category');
-        return redirect('/category');
+        return redirect('/categories');
     }
 
     /**
@@ -96,7 +96,7 @@ class CategoryController extends Controller
             ->update($validateData);
         Alert::success('Success', 'Successfully updated category');
 
-        return redirect('/category');
+        return redirect('/categories');
     }
 
     /**
@@ -109,6 +109,6 @@ class CategoryController extends Controller
     {
         Category::destroy($category->id);
         Alert::success('Success', 'Successfully deleted category');
-        return redirect('/category');
+        return redirect('/categories');
     }
 }

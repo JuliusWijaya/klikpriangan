@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\SinglePageController;
@@ -30,17 +31,15 @@ Route::get('/pedoman-media-siber', [SinglePageController::class, 'media']);
 Route::get('/info-iklan', [SinglePageController::class, 'iklan']);
 Route::get('/kontak', [SinglePageController::class, 'contact']);
 
-// Route::get('/login', [SinglePageController::class, 'login'])->name('login');
-Route::get('/wp-admin', function () {
-    dd('Testing berhasil');
-});
-Route::post('/login', [SinglePageController::class, 'loginAction'])->name('login.action');
+Route::get('/login', [AuthenticationController::class, 'login'])->name('login');
+Route::post('/login', [AuthenticationController::class, 'loginAction'])->name('login.action');
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
     Route::middleware('only.admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index']);
+
         Route::resource('categories', CategoryController::class);
         Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit']);
         Route::get('/categories/create/checkSlug', [CategoryController::class, 'show']);
@@ -50,8 +49,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/posts/{post:slug}/edit', [PostController::class, 'edit']);
         Route::get('/posts/create/checkSlug', [PostController::class, 'checkSlug']);
 
+        Route::get('/users/status-inactive', [UserController::class, 'status']);
         Route::resource('users', UserController::class);
+        Route::get('/users/{user:username}/edit', [UserController::class, 'edit']);
         Route::get('/users/details/{user:username}', [UserController::class, 'show']);
-        Route::get('/users/inactive', [UserController::class, 'status']);
+        Route::post('/users/status/{user}', [UserController::class, 'statusActive'])->name('status.active');
     });
 });
