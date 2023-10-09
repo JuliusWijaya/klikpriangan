@@ -4,7 +4,9 @@
 <div class="row" style="margin: 0 20px;">
     <div class="col-12 col-lg-10">
         <h3 style="margin: 20px 0;">Data User Inactive</h3>
-
+        <div style="margin: 15px 0;">
+            <a href="/users" class="btn btn-primary">Back</a>
+        </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>

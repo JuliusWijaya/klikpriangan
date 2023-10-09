@@ -55,15 +55,21 @@ class PagesController extends Controller
     {
         $title = 'Klik Priangan - Aktual dan Unik';
         $categories = Category::latest()->get(['id', 'name', 'slug']);
-        $posts = Post::with(['category', 'author'])->where('category_id', '=', 1)->orderBy('id', 'desc')->take(3)->get(['id', 'title', 'slug', 'user_id', 'category_id', 'published_at', 'image']);
+        $posts = Post::with(['category', 'author'])->where('category_id', '=', 1)->orderBy('id', 'desc')->take(3)
+            ->get(['id', 'title', 'slug', 'user_id', 'category_id', 'published_at', 'image']);
         $opini = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
             ->where('category_id', '=', 2)->orderBy('published_at', 'desc')->first();
+        $pendidikan = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
+            ->where('category_id', '=', 3)->orderBy('published_at', 'desc')->first();
+        $news = Post::with(['author', 'category'])->popular(request(['keyword']))->orderBy('published_at', 'desc')->paginate(4)->withQueryString();
 
         return view('pages.index', [
             'title'      => $title,
             'categories' => $categories,
             'posts'      => $posts,
             'opini'      => $opini,
+            'education'  => $pendidikan,
+            'news'       => $news,
             'days'       => $this->hari_ini,
         ]);
     }
@@ -82,9 +88,10 @@ class PagesController extends Controller
 
     public function authorPost(User $author)
     {
+
         return view('posts.author', [
             'title'         => $author->username,
-            'author'        => $author->post,
+            'author'        => $author->post->load(['author', 'category']),
             'categories'    => Category::latest()->get(),
             'days'          => $this->hari_ini,
         ]);
@@ -97,10 +104,10 @@ class PagesController extends Controller
         $categories = Category::select('id', 'name', 'slug')->get();
 
         return view('posts.blog_details', [
-            'title'      => $post->title,
-            'data'       => $data,
-            'posts'      => $posts,
-            'categories' => $categories,
+            'title'         => $post->title,
+            'data'          => $data,
+            'posts'         => $posts,
+            'categories'    => $categories,
             'days'          => $this->hari_ini,
         ]);
     }

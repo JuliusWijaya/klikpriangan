@@ -8,7 +8,7 @@
               <div class="col-lg-8 posts-list">
                  <div class="single-post">
                     <div class="feature-img">
-                       <img class="img-fluid" src="{{ asset('/storage/image/'.$data->image) }}" alt="">
+                       <img class="img-fluid" src="{{ asset('/storage/image/'.$data->image) }}" alt="{{ $data->title }}">
                     </div>
                     <div class="blog_details mb-5">
                        <h2>{{ $data->title }}</h2>
@@ -35,8 +35,8 @@
                        <ul class="social-icons">
                           <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
                           <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                          <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                          <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                          <li><a href="#"><i class="fab fa-youtube"></i></a></li>
                        </ul>
                     </div>
                  </div>

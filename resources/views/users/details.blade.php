@@ -4,7 +4,7 @@
 <div class="row" style="padding: 0 18px;">
     <div class="col-12 col-lg-8">
         <h3>Details {{ $data->username }}</h3>
-
+       
         <div class="panel panel-default">
             <div class="panel-body">
                 <div>

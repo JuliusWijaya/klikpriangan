@@ -11,17 +11,17 @@
     <link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.ico">
 
     <!-- CSS here -->
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="/assets/css/ticker-style.css">
-    <link rel="stylesheet" href="/assets/css/flaticon.css">
-    <link rel="stylesheet" href="/assets/css/slicknav.css">
-    <link rel="stylesheet" href="/assets/css/animate.min.css">
-    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
-    <link rel="stylesheet" href="/assets/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="/assets/css/slick.css">
-    <link rel="stylesheet" href="/assets/css/nice-select.css">
+    <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/ticker-style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/slicknav.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/magnific-popup.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/fontawesome-all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/slick.css') }}">
+    <link rel="stylesheet" href="{{ asset('/assets/css/nice-select.css') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/style.css') }}">
 </head>
 
@@ -35,8 +35,9 @@
     <div class="search-model-box">
         <div class="d-flex align-items-center h-100 justify-content-center">
             <div class="search-close-btn">+</div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Searching key.....">
+            <form action="/" method="GET" class="search-model-form">
+                <input type="text" id="search-input" name="keyword" value="{{ request('keyword') }}" 
+                placeholder="Search...">
             </form>
         </div>
     </div>
