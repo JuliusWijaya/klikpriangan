@@ -7,7 +7,7 @@
             <h3>Edit Category</h3>
 
             <div style="margin: 10px 0;">
-                <a href="/category" class="btn btn-success btn-sm"><i class="fa fa-reply" aria-hidden="true"></i></a>
+                <a href="/categories" class="btn btn-success btn-sm"><i class="fa fa-reply" aria-hidden="true"></i></a>
             </div>
             @if ($errors->any())
                 @foreach ($errors->all() as $error)

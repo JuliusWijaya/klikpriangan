@@ -147,7 +147,7 @@ class PostController extends Controller
         $validateData['user_id'] = Auth::user()->id;
         $validateData['excerpt'] = Str::limit($validateData['excerpt'], 180);
         $validateData['published_at'] = Carbon::now()->toDateString();
-        $validateData['body'] = strip_tags($validateData['body']);
+        $validateData['body'] = $validateData['body'];
 
         $posts = Post::where('id', $post->id)->first();
         $posts->update($validateData);

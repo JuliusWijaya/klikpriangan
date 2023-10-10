@@ -10,24 +10,9 @@
                     <div class="whats-news-wrapper">
                         <!-- Heading & Nav Button -->
                         <div class="row justify-content-between align-items-end mb-15">
-                            <div class="col-xl-4">
+                            <div class="col-xl-12">
                                 <div class="section-tittle mb-30">
                                     <h5 class="px-3">Post By {{ $title }}</h5>
-                                </div>
-                            </div>
-                            <div class="col-xl-8 col-md-9">
-                                <div class="properties__button">
-                                    <!--Nav Button  -->
-                                    <nav>
-                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                            @foreach ($author->take(4) as $item)
-                                            <a class="nav-item nav-link active"
-                                                href="/category/{{ $item->category->slug }}" 
-                                                aria-selected="true">{{ $item->category->name }}</a>
-                                            @endforeach
-                                        </div>
-                                    </nav>
-                                    <!--End Nav Button  -->
                                 </div>
                             </div>
                         </div>
@@ -40,7 +25,7 @@
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="row">
-                                            @foreach ($author->skip(1) as $item)
+                                            @foreach ($author as $item)
                                             <div class="col-xl-6 col-lg-6 col-md-6">
                                                 <div class="whats-news-single mb-40 mb-40">
                                                     <div class="whates-img">
@@ -62,6 +47,9 @@
                                     </div>
                                 </div>
                                 <!-- End Nav Card -->
+                                <div>
+                                    {{ $author->render() }}
+                                </div>
                             </div>
                         </div>
                     </div>

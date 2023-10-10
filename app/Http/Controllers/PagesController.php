@@ -54,7 +54,7 @@ class PagesController extends Controller
     public function index()
     {
         $title = 'Klik Priangan - Aktual dan Unik';
-        $categories = Category::latest()->get(['id', 'name', 'slug']);
+        $categories = Category::get(['id', 'name', 'slug']);
         $posts = Post::with(['category', 'author'])->where('category_id', '=', 1)->orderBy('id', 'desc')->take(3)
             ->get(['id', 'title', 'slug', 'user_id', 'category_id', 'published_at', 'image']);
         $opini = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
@@ -62,6 +62,7 @@ class PagesController extends Controller
         $pendidikan = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
             ->where('category_id', '=', 3)->orderBy('published_at', 'desc')->first();
         $news = Post::with(['author', 'category'])->popular(request(['keyword']))->orderBy('published_at', 'desc')->paginate(4)->withQueryString();
+        $sport = Post::with(['author', 'category'])->where('category_id', 5)->orderBy('published_at', 'desc')->first();
 
         return view('pages.index', [
             'title'      => $title,
@@ -70,6 +71,7 @@ class PagesController extends Controller
             'opini'      => $opini,
             'education'  => $pendidikan,
             'news'       => $news,
+            'sport'      => $sport,
             'days'       => $this->hari_ini,
         ]);
     }
@@ -91,7 +93,7 @@ class PagesController extends Controller
 
         return view('posts.author', [
             'title'         => $author->username,
-            'author'        => $author->post->load(['author', 'category']),
+            'author'        => $author->post()->with(['author', 'category'])->paginate(4),
             'categories'    => Category::latest()->get(),
             'days'          => $this->hari_ini,
         ]);
