@@ -9,8 +9,8 @@
 
 </style>
 
-<div class="row" style="padding: 0 30px;">
-    <div class="col-12 col-lg-12">
+<div class="row" style="margin: 0 3.5rem;">
+    <div class="col-12 ">
         <h3>Create New Post</h3>
         @if ($errors->any())
         @foreach ($errors->all() as $error)
@@ -18,7 +18,7 @@
         @endforeach
         @endif
 
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" style="margin: 0 0 45px; width: 130%;">
             <div class="panel-heading">
                 <a href="/posts" class="btn btn-default "><i class="fa fa-reply" aria-hidden="true"></i></a>
             </div>
@@ -28,7 +28,8 @@
                     <div class="form-group @error('title') has-error @enderror">
                         <label for="title">Title</label>
                         <input type="text" name="title" id="title" class="form-control" placeholder="Title Post"
-                            required autofocus value="{{ old('title') }}">
+                            required autofocus value="{{ old('title') }}" style="margin-bottom: 15px">
+                        <span class="label label-info" id="text"></span>
                         @error('title')
                         <p class="text-danger">
                             {{ $message }}
@@ -86,7 +87,7 @@
                         </select>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary text-end">Submit</button>
+                        <button type="submit" class="btn btn-primary text-end">Publish</button>
                     </div>
                 </form>
             </div>
@@ -99,6 +100,8 @@
 <script type="text/javascript" src="https://unpkg.com/trix@2.0.0/dist/trix.umd.min.js"></script>
 <script>
     $(document).ready(function () {
+        var txt = $('#text').text('Length Character');
+
         $('#title').on('change', function () {
             const title = $('#title').val();
             var path = '/posts/create/checkSlug?title=' + title;
@@ -115,6 +118,23 @@
                 }
             });
         });
+
+        $('#title').keyup(function(){
+            var title = $('#title').val();
+            var text = title.length;
+
+            if(text >= 1){
+                if(text >= 110){
+                    $('#text').removeClass('label label-info')
+                    $('#text').addClass('label label-danger')
+                } else {
+                    $('#text').addClass('label label-info')
+                }
+                $('#text').text('Lenght Character ' + text);
+            } else {
+                txt.text('Length Character');
+            }
+        })
     });
 
     function previewImage() {

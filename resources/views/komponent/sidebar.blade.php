@@ -17,7 +17,7 @@
         <li>
           <a href="/dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a>
           <a href="/categories"><i class="fa fa-tags"></i> <span>Category</span></a>
-          <a href="/posts"><i class="fa fa-certificate"></i> <span>Post</span></a>
+          <a href="/posts"><i class="fa fa-pencil-square-o"></i> <span>Post</span></a>
           <a href="/users"><i class="fa fa-user"></i> <span>User</span></a>
         </li>
       </ul>

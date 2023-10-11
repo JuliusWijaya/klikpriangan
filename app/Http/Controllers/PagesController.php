@@ -57,9 +57,9 @@ class PagesController extends Controller
         $categories = Category::get(['id', 'name', 'slug']);
         $posts = Post::with(['category', 'author'])->where('category_id', '=', 1)->orderBy('id', 'desc')->take(3)
             ->get(['id', 'title', 'slug', 'user_id', 'category_id', 'published_at', 'image']);
-        $opini = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
+        $opini = Post::with('category')->select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
             ->where('category_id', '=', 2)->orderBy('published_at', 'desc')->first();
-        $pendidikan = Post::select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
+        $pendidikan = Post::with('category')->select('id', 'title', 'category_id', 'user_id', 'slug', 'published_at', 'image')
             ->where('category_id', '=', 3)->orderBy('published_at', 'desc')->first();
         $news = Post::with(['author', 'category'])->popular(request(['keyword']))->orderBy('published_at', 'desc')->paginate(4)->withQueryString();
         $sport = Post::with(['author', 'category'])->where('category_id', 5)->orderBy('published_at', 'desc')->first();

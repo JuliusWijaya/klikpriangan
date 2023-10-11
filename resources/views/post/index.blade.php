@@ -1,14 +1,15 @@
 @extends('layouts.index')
 
 @section('content')
-<div class="row" style="padding: 10px;" >
-    <div class="col-12 col-lg-12">
+<div class="row" style="padding: 0 50px;">
+    <div class="col-12">
         <h3>Post</h3>
-        <div style="padding: 15px 0;">
-            <a href="{{ route('posts.create') }}" class="btn btn-primary">Create Post</a>
+
+        <div style="padding: 15px 0;" class="pull-left">
+            <a href="{{ route('posts.create') }}" class="btn btn-primary pull-right">Create Post</a>
         </div>
 
-        <div class="table-responsive" style="margin-top: 10px;">
+        <div class="table-responsive" style="margin-top: 10px; width: 150%;">
             <table id="example" class="table table-hover">
                 <thead>
                     <tr>

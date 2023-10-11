@@ -4,12 +4,16 @@
 <div class="row" style="padding: 0 20px;">
     <div class="col-12 col-lg-9">
         <h3>Data User</h3>
-        <div style="margin: 15px 0;">
-            <a href="/users/status-inactive" class="btn btn-success" style="margin: 0 15px;">Inactive</a>
-            <a href="{{ route('users.create') }}" class="btn btn-primary">Create User</a>
+        <div class="row">
+            <div class="col-12" style="margin: 10px 0;">
+                <a href="/users/status-inactive" class="btn btn-success" style="margin: 0 15px;">Inactive</a>
+                <a href="{{ route('users.create') }}" class="btn btn-primary pull-right">Create User</a>
+            </div>
         </div>
 
-        <div class="table-responsive" style="padding: 10px 0;">
+      
+
+        <div class="table-responsive" style="padding: 10px 0; width: 120%;">
             <table class="table">
                 <thead>
                     <tr>

@@ -116,7 +116,7 @@
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="row">
-                                            <div class="col-xl-6 col-lg-12">
+                                            <div class="col-xl-12 col-lg-8">
                                                 <div class="row">
                                                     @foreach ($news as $item)
                                                     <div class="col-xl-12 col-lg-6 col-md-6 col-sm-10">

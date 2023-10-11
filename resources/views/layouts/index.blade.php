@@ -50,7 +50,7 @@
               <p>Category</p>
             </div>
             <div class="icon">
-              <i class="ion ion-bag"></i>
+              <i class="ion ion-folder"></i>
             </div>
             <a href="/category" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
