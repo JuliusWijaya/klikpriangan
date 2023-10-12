@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
@@ -58,6 +59,7 @@ class UserController extends Controller
         ]);
 
         $validate['username'] = Str::lower($validate['username']);
+        $validate['password'] = Hash::make($validate['password']);
         User::create($validate);
         Alert::success('Success', 'Successfully add user');
         return redirect('/users');

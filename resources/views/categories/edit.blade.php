@@ -42,7 +42,7 @@
     $(document).ready(function () {
         $('#name').change(function () {
             const name = $('#name').val();
-            var path = '/category/create/checkSlug?name=' + name;
+            var path = '/categories/create/checkSlug?name=' + name;
 
             $.ajax({
                 url: path,
@@ -57,6 +57,5 @@
             });
         });
     });
-
 </script>
 @endpush

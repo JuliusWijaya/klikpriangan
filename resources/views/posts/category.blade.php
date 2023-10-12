@@ -24,7 +24,7 @@
                             <p>{{ $item->excerpt }}</p>
                             <ul class="blog-info-link">
                                 <li>
-                                    <a href="#">
+                                    <a>
                                         <i class="fa fa-calendar"></i>
                                         {{ \Carbon\Carbon::parse($item->published_at)->toDateString() }}
                                     </a>
@@ -45,31 +45,21 @@
                     </div>
                 </div>
                 @endif
+                <div class="d-flex justify-content-end">
+                    {!! $datas->render() !!}
+                </div>
             </div>
         </div>
 
         <div class="col-lg-4">
             <div class="blog_right_sidebar">
-                <aside class="single_sidebar_widget post_category_widget">
-                    <h4 class="widget_title">Category</h4>
-                    <ul class="list cat-list">
-                        @foreach ($categories as $item)
-                        <li>
-                            <a href="/category/{{ $item->slug }}" class="d-flex">
-                                <p class="me-5">{{ $item->name }}</p>
-                            </a>
-                        </li>
-                        @endforeach
-                    </ul>
-                </aside>
-
-                <aside class="single_sidebar_widget popular_post_widget">
-                    <h3 class="widget_title">Recent Post</h3>
+                <aside class="single_sidebar_widget popular_post_widget mb-5">
+                    <h3 class="widget_title">Terpopuler</h3>
                     @foreach ($datas as $data)
                     <div class="media post_item">
-                        <img src="/assets/img/post/post_1.png" alt="post">
+                        <img src="{{ asset('storage/image/'.$data->image) }}" class="img-fluid" width="150" alt="post">
                         <div class="media-body">
-                            <a href="/{{ $data->slug }}">
+                            <a href="/post/{{ $data->slug }}">
                                 <h3>{{ $data->excerpt }}</h3>
                             </a>
                             <p>{{ \Carbon\Carbon::parse($item->published_at)->format('M d Y') }}</p>
@@ -77,6 +67,9 @@
                     </div>
                     @endforeach
                 </aside>
+                <div class="border p-3">
+                    <img src="/assets/img/1.webp" alt="iklan" class="img-fluid">
+                </div>
             </div>
         </div>
     </div>

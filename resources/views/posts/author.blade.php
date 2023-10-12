@@ -8,20 +8,17 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="whats-news-wrapper">
-                        <!-- Heading & Nav Button -->
                         <div class="row justify-content-between align-items-end mb-15">
                             <div class="col-xl-12">
                                 <div class="section-tittle mb-30">
-                                    <h5 class="px-3">Post By {{ $title }}</h5>
+                                    <h5 class="px-3">Penulis {{ $title }}</h5>
                                 </div>
                             </div>
                         </div>
                    
                         <div class="row">
                             <div class="col-12">
-                                <!-- Nav Card -->
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!-- card one -->
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                         aria-labelledby="nav-home-tab">
                                         <div class="row">
@@ -37,6 +34,7 @@
                                                     </div>
                                                     <div class="whates-caption whates-caption2">
                                                         <h4><a href="/post/{{ $item->slug }}">{{ $item->title }}</a></h4>
+                                                        <p><a href="/category/{{ $item->category->slug }}" class="text-primary">{{ $item->category->name }}</a></p>
                                                         <span>by {{ $item->author->username }} - {{ \Carbon\Carbon::parse($item->published_at)->format('M d Y') }}</span>
                                                         <p>{{ $item->excerpt }}</p>
                                                     </div>
@@ -46,8 +44,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End Nav Card -->
-                                <div>
+                                <div class="d-flex justify-content-end">
                                     {{ $author->render() }}
                                 </div>
                             </div>
@@ -57,18 +54,21 @@
 
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget post_category_widget">
+                        <aside class="single_sidebar_widget post_category_widget mb-5">
                             <h4 class="widget_title">Category</h4>
                             <ul class="list cat-list">
-                                @foreach ($categories as $item)
+                                @foreach ($categories as $items)
                                 <li>
-                                    <a href="/category/{{ $item->slug }}" class="d-flex">
-                                        <p class="me-5">{{ $item->name }}</p>
+                                    <a href="/category/{{ $items->slug }}" class="d-flex">
+                                        <p class="me-5">{{ $items->name }}</p>
                                     </a>
                                 </li>
                                 @endforeach
                             </ul>
                         </aside>
+                        <div class="border p-3">
+                            <img src="/assets/img/1.webp" alt="" class="img-fluid">
+                        </div>
                     </div>
                 </div>
             </div>

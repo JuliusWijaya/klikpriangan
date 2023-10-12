@@ -39,6 +39,9 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware('only.admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index']);
+        Route::get('/profile/{user:username}', [DashboardController::class, 'profile']);
+        Route::get('/setting-password', [DashboardController::class, 'password']);
+        Route::post('/setting-password', [DashboardController::class, 'password_action'])->name('password.action');
 
         Route::resource('categories', CategoryController::class);
         Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit']);

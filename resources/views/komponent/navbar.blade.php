@@ -15,16 +15,15 @@
 
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="/dist/img/avatar5.png" class="user-image" alt="User Image">
+              <img src="/dist/img/user.png" class="user-image" alt="User Image">
               <span class="hidden-xs" style="text-transform:capitalize;">{{ auth()->user()->username }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="/dist/img/avatar5.png" class="img-circle" alt="User Image">
+                <img src="/dist/img/user.png" class="img-circle" alt="User Image">
                 <p>
                   <span>{{ auth()->user()->name }}</span>
                   <small>{{ auth()->user()->role->name }}</small>
@@ -34,7 +33,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="/profile/{{ auth()->user()->username }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <form action="{{ route('logout') }}" method="POST">

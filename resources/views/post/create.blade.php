@@ -67,7 +67,8 @@
                     </div>
                     <div class="form-group">
                         <img class="img-preview img-fluid col-sm-5" style="padding: 15px;">
-                        <input type="file" class="form-control" name="photo" id="photo" onchange="previewImage()">
+                        <input type="file" class="form-control" name="photo" id="photo"
+                            onchange="previewImage()">
                     </div>
                     <div class="form-group @error('body') has-error @enderror">
                         <label for="body">Body</label>
@@ -80,6 +81,7 @@
                         <trix-editor input="body"></trix-editor>
                     </div>
                     <div class="form-group">
+                        <label for="author">Author</label>
                         <select name="user_id" id="user_id" class="form-control">
                             @foreach ($users as $user)
                             <option value="{{ $user->id }}">{{ $user->username }}</option>
@@ -119,12 +121,12 @@
             });
         });
 
-        $('#title').keyup(function(){
+        $('#title').keyup(function () {
             var title = $('#title').val();
             var text = title.length;
 
-            if(text >= 1){
-                if(text >= 110){
+            if (text >= 1) {
+                if (text >= 110) {
                     $('#text').removeClass('label label-info')
                     $('#text').addClass('label label-danger')
                 } else {

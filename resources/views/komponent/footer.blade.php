@@ -9,7 +9,7 @@
                 <div class="single-footer-caption mb-30">
                   <!-- logo -->
                   <div class="footer-logo">
-                    <a href="/"><img src="/assets/img/logo/klikprianganwhite.png" class="w-100" alt="" /></a>
+                    <a href="/"><img src="/assets/img/logo/klikprianganwhite.png" class="img-fluid" alt="logo" /></a>
                   </div>
                   <div class="footer-tittle">
                     <div class="footer-pera">
@@ -21,19 +21,19 @@
                 </div>
               </div>
             </div>
-            <div class="col-xl-4 col-lg-4 col-md-5 col-sm-7">
+            <div class="col-xl-2 col-lg-4 col-md-5 col-sm-7">
               <div class="single-footer-caption mb-50">
                 <div class="footer-tittle">
                   <p class="okes text-white">KLIK PRIANGAN</p>
                   @foreach ($categories as $category)
-                  <a href="/category/{{ $category->slug }}">
-                    <p class="text-white">{{ $category->name }}</p>
-                  </a>
+                    <a href="/category/{{ $category->slug }}">
+                      <p class="text-white">{{ $category->name }}</p>
+                    </a>
                   @endforeach
                 </div>
               </div>
             </div>
-            <div class="col-xl-3 col-lg-3 col-md-5 col-sm-7">
+            <div class="col-xl-3  col-md-5 col-sm-7">
               <div class="single-footer-caption mb-50">
                 <div class="banner">
                   <p class="text-white">PT. PRIANGAN WAHANA MEDIA</p>
@@ -43,14 +43,14 @@
                 </div>
               </div>
             </div>
-            <div class="d-block">
-              <p>
-                <a href="/about">Tentang Kami</a> | 
-                <a href="/redaksi">Redaksi</a> | 
-                <a href="/pedoman-media-siber">Pedoman Pemberitaan</a> | 
-                <a href="/info-iklan">Info Iklan</a> | 
-                <a href="/kontak">Kontak</a> |
-              </p>
+            <div class="col-xl-3 col-lg-3">
+              <ul>
+                <li class="my-3"><a href="/about">Tentang Kami</a> </li>
+                <li><a href="/redaksi">Redaksi</a></li>
+                <li class="my-3"><a href="/pedoman-media-siber">Pedoman Pemberitaan</a></li>
+                <li><a href="/info-iklan">Info Iklan</a></li>
+                <li class="my-3"><a href="/kontak">Kontak</a></li>
+              </ul>
             </div>
           </div>
         </div>

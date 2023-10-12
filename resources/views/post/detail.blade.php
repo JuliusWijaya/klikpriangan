@@ -38,7 +38,7 @@
                 <div style="padding: 5px;">
                 </div>
                 <input type="text" class="form-control" 
-                    value="{{ \Carbon\Carbon::parse($data->published_at)->diffForHumans() }}" readonly>
+                    value="{{ Carbon\Carbon::parse($data->published_at)->diffForHumans() }}" readonly>
             </div>
         </div>
     </div>

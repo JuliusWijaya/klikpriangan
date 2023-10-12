@@ -23,7 +23,7 @@ class PostController extends Controller
     public function index()
     {
         $title = 'Dashboard Post';
-        $posts = Post::latest()->get();
+        $posts = Post::where('user_id', auth()->user()->id)->latest()->get();
 
         return view('post.index', ['title' => $title, 'posts' => $posts]);
     }

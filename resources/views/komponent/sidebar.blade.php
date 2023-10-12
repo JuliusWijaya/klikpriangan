@@ -1,11 +1,9 @@
-<!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{ asset('/dist/img/avatar5.png') }}" class="img-circle" alt="User Image">
+          <img src="/dist/img/user.png" class="img-circle" alt="User Image" />
         </div>
         <div class="pull-left info">
           <p style="margin: 12px 0; text-transform: uppercase;">{{ auth()->user()->username }}</p>

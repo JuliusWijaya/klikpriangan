@@ -44,25 +44,12 @@
 
               <div class="col-lg-4">
                  <div class="blog_right_sidebar">
-                    <aside class="single_sidebar_widget post_category_widget">
-                       <h4 class="widget_title">Category</h4>
-                       <ul class="list cat-list">
-                        @foreach ($categories as $item)
-                        <li>
-                           <a href="/category/{{ $item->slug }}" class="d-flex">
-                              <p>{{ $item->name }}</p>
-                           </a>
-                        </li>
-                        @endforeach
-                       </ul>
-                    </aside>
-
-                    <aside class="single_sidebar_widget popular_post_widget">
-                       <h3 class="widget_title">Recent Post</h3>
+                    <aside class="single_sidebar_widget popular_post_widget mb-5">
+                       <h3 class="widget_title">Terpopuler</h3>
                        @foreach ($posts as $post)
                        <div class="media post_item">
                         @if ($post->image)
-                        <img src="{{ asset('/storage/image/'.$post->image) }}" alt="{{ $post->title }}" width="100px">
+                        <img src="{{ asset('/storage/image/'.$post->image) }}" alt="{{ $post->title }}" width="150">
                         @else
                         <img src="/assets/img/post/post_1.png" alt="Post">
                         @endif
@@ -75,7 +62,10 @@
                         </div>
                      </div>
                      @endforeach
-                    </aside>
+                  </aside>
+                  <div class="border p-3">
+                     <img src="/assets/img/1.webp" alt="iklan" class="img-fluid">
+                  </div>
                  </div>
               </div>
            </div>
