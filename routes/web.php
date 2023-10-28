@@ -44,7 +44,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/setting-password', [DashboardController::class, 'password_action'])->name('password.action');
 
         Route::resource('categories', CategoryController::class);
-        Route::get('/categories/{category:slug}/edit', [CategoryController::class, 'edit']);
+        Route::get('category/edit/{id}', [CategoryController::class, 'edit']);
+        Route::put('categories/update/{id}', [CategoryController::class, 'update']);
         Route::get('/categories/create/checkSlug', [CategoryController::class, 'show']);
 
         Route::resource('posts', PostController::class);

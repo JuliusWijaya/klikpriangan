@@ -44,7 +44,7 @@
             <!-- Main content -->
             <section class="content">
                 @if (Request::is('dashboard'))
-                  @yield('box')
+                @yield('box')
                 @endif
 
                 <div class="row">
@@ -66,6 +66,7 @@
     <script>
         $.widget.bridge('uibutton', $.ui.button);
     </script>
+
     <!-- Bootstrap 3.3.7 -->
     <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 

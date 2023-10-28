@@ -57,8 +57,11 @@ class CategoryController extends Controller
     public function show(Request $request)
     {
         $slug = SlugService::createSlug(Category::class, 'slug', $request->name);
-
-        return response()->json(['slug' => $slug]);
+        if ($slug) {
+            return response()->json(['status' => 200, 'slug' => $slug]);
+        } else {
+            return response()->json(['status' => 404, 'message' => 'Slug Not Found!']);
+        }
     }
 
     /**
@@ -67,11 +70,21 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        $data = Category::where('slug', $category->slug)->first();
+        $category = Category::findOrFail($id);
 
-        return view('categories.edit', ['title' => 'Edit category', 'data' => $data]);
+        if ($category) {
+            return response()->json([
+                'status'     => 200,
+                'category'   => $category
+            ]);
+        } else {
+            return response()->json([
+                'status'     => 404,
+                'message'    => 'Not found!',
+            ]);
+        }
     }
 
     /**
