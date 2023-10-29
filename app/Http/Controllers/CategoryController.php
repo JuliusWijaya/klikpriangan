@@ -105,10 +105,13 @@ class CategoryController extends Controller
         }
 
         $validateData = $request->validate($rules);
-        Category::where('id', $category->id)
-            ->update($validateData);
-        Alert::success('Success', 'Successfully updated category');
 
+        if ($request->category_id) {
+            Category::where('id', $request->category_id)
+                ->update($validateData);
+        }
+
+        Alert::success('Success', 'Successfully updated category');
         return redirect('/categories');
     }
 

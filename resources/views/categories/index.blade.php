@@ -50,10 +50,10 @@
                 <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
+                <form action="{{ url('/categories/update') }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" id="edit_id">
+                    <input type="hidden" name="category_id" id="edit_id">
                     <div class="form-group @error('name') has-error @enderror">
                         <label for="name">Nama Category</label>
                         <input type="text" class="form-control" name="name" id="edit_name">
@@ -174,23 +174,6 @@
                 }
             })
         });
-
-        // $('.update_category').click(function(){
-        //     var catId = $('#edit_id').val();
-        //     var data = {
-        //         name: $('#edit_name').val(),
-        //         slug: $('#edit_slug').val(),
-        //     }
-        //     $.ajax({
-        //         type: 'PUT',
-        //         url: '/categories/update/'+catId;
-        //         data: data,
-        //         dataType: 'json',
-        //         success: function(response){
-        //             console.log(response);
-        //         }
-        //     });
-        // });
 
         $('#edit_name').change(function () {
             const name = $('#edit_name').val();

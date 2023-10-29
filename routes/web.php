@@ -43,10 +43,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/setting-password', [DashboardController::class, 'password']);
         Route::post('/setting-password', [DashboardController::class, 'password_action'])->name('password.action');
 
+        Route::put('/categories/update', [CategoryController::class, 'update']);
         Route::resource('categories', CategoryController::class);
-        Route::get('category/edit/{id}', [CategoryController::class, 'edit']);
-        Route::put('categories/update/{id}', [CategoryController::class, 'update']);
         Route::get('/categories/create/checkSlug', [CategoryController::class, 'show']);
+        Route::get('/category/edit/{id}', [CategoryController::class, 'edit']);
 
         Route::resource('posts', PostController::class);
         Route::get('/posts/details/{post:slug}', [PostController::class, 'show']);
