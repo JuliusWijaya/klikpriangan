@@ -130,11 +130,11 @@ class PostController extends Controller
             $rules['title'] = 'required|unique:posts';
         }
 
-        $newName = '';
+        $newName = $post->image;
 
-        if ($request->file('photo')) {
+        if ($request->hasFile('photo')) {
             if ($request->oldImage) {
-                Storage::disk('local')->delete('public/image/' . $request->oldImage);
+                Storage::disk('local')->delete('public/image/' . $newName);
             }
 
             $extension = $request->file('photo')->getClientOriginalExtension();

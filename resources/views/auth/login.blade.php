@@ -20,7 +20,6 @@
             @csrf
             <div>
                 <label for="username">Username</label>
-              
                 <input type="text" name="username" id="username"
                     class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required
                     autofocus>
@@ -30,7 +29,6 @@
             </div>
             <div>
                 <label for="password">Password</label>
-               
                 <input type="password" name="password" id="password"
                     class="form-control @error('password') is-invalid @enderror oke" required>
 
